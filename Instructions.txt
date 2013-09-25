@@ -1,0 +1,64 @@
+----------------------------------------------------------------------------------------------------------
+					Getting Started
+----------------------------------------------------------------------------------------------------------
+R.O.S. or Robot Operating System is used to communicate between a computer and a robot. ROS currently uses 3 languages: C++, Python and Java. I am using ROS Java although it is still under active development and so features are volatile.
+-----------------------------------------------------
+		ROS options
+-----------------------------------------------------
+1a) Use a Virtual machine disk image with Ubuntu and ROS already installed. Instructions here: 
+http://nootrix.com/2012/09/virtualizing-ros/
+1b) Install ROS natively on Ubuntu or Mac OS X. (As of 2012 I was unable to get a working install of ROS on Mac OS X)
+1c) Install Ubuntu on a separate partition on your machine and dual boot. Then install ROS and ROS Java. Instructions here:
+http://wiki.ros.org/ROS/Installation
+
+I have used the third option as this is the best option available to me. I am using Ubuntu 13.04 and ROS Hydro as this is the best combination for my laptop.
+
+-----------------------------------------------------
+		Complete the ROS Tutorials
+-----------------------------------------------------
+It is important to complete the tutorials on the ROS wiki. These not only provide a good introduction to the various tools that you will need whilst using ROS. It also helps you setup your ROS Environment which is needed for the next step.
+ 
+-----------------------------------------------------
+		Installing ROS Java
+-----------------------------------------------------
+The official instructions for installing ROS can be found here:
+http://wiki.ros.org/rosjava/Tutorials/hydro/Installation
+
+
+<Date of writing 25/9/2013>
+However I used a different set of instructions which I will outline below:
+
+1) Ensure apt-get is up to date
+	sudo apt-get update
+	sudo apt-get upgrade
+
+2) Install the Java Runtime Environment and Java Development Kit
+To install ROS Java you obviously need to install a version of Java. If you already have Java installed you may skip this step.
+(I am using openjdk however there are alternate releases of Java for linux)
+	sudo apt-get install openjdk-7-jre
+	sudo apt-get install openjdk-7-jdk
+
+3) Install Netbeans
+I use Netbeans as my IDE so will install that now.
+	sudo apt-get install netbeans
+
+4) Install python-wstool
+	sudo apt-get install python-wstool
+
+5) cd into your workspace
+Mine is:
+	roscd
+	cd ../src
+
+6) 
+
+
+
+
+
+
+
+
+
+
+
