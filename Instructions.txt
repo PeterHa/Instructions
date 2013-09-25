@@ -66,12 +66,6 @@ Rosjava should now be installed and working properly.
 		Using the Microsoft Xbox 360 Kinect with ROS
 ----------------------------------------------------------------------------------------------------------
 I am using the Microsoft Xbox 360 Kinect to track skeletons with ROS Java for various projects.
-I have previously used the openni package to track skeletons but development of this seems to have been discontinued so I will use freenect_stack. Documentation here:
-http://wiki.ros.org/freenect_stack
-
-1) Install the files
-	sudo apt-get install ros-hydro-freenect-stack
-
 
 
 
