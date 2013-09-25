@@ -50,7 +50,27 @@ Mine is:
 	roscd
 	cd ../src
 
-6) 
+6) Make a directory for rosjava
+	mkdir -p rosjava
+
+7) Initialise the empty repository and add the rosjava files
+	wstool init -j4 ./rosjava/src https://raw.github.com/rosjava/rosjava_tools/hydro-devel/rosjava.rosinstall
+
+8) Make the rosjava files
+	cd rosjava
+	catkin_make
+
+Rosjava should now be installed and working properly.
+
+----------------------------------------------------------------------------------------------------------
+		Using the Microsoft Xbox 360 Kinect with ROS
+----------------------------------------------------------------------------------------------------------
+I am using the Microsoft Xbox 360 Kinect to track skeletons with ROS Java for various projects.
+I have previously used the openni package to track skeletons but development of this seems to have been discontinued so I will use freenect_stack. Documentation here:
+http://wiki.ros.org/freenect_stack
+
+1) Install the files
+	sudo apt-get install ros-hydro-freenect-stack
 
 
 
