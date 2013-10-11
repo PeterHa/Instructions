@@ -1,0 +1,70 @@
+----------------------------------------------------------------------------------------------------------
+					Getting Started
+----------------------------------------------------------------------------------------------------------
+
+R.O.S. or Robot Operating System is used to communicate between a computer and a robot. ROS currently uses 3 languages: C++, Python and Java. I am using ROS Java although it is still under active development and so features are volatile.
+-----------------------------------------------------
+		ROS options
+-----------------------------------------------------
+
+1a) Use a Virtual machine disk image with Ubuntu and ROS already installed. Instructions here: 
+http://nootrix.com/2012/09/virtualizing-ros/
+1b) Install ROS natively on Ubuntu or Mac OS X. (As of 2012 I was unable to get a working install of ROS on Mac OS X)
+1c) Install Ubuntu on a separate partition on your machine and dual boot. Then install ROS and ROS Java. Instructions here:
+http://wiki.ros.org/ROS/Installation
+
+I have used the third option as this is the best option available to me. I am using Ubuntu 13.04 and ROS Groovy as this is the best combination for my laptop
+-----------------------------------------------------
+		Complete the ROS Tutorials
+-----------------------------------------------------
+
+It is important to complete the tutorials on the ROS wiki. These not only provide a good introduction to the various tools that you will need whilst using ROS. It also helps you setup your ROS Environment which is needed for the next step.
+-----------------------------------------------------
+		Installing ROS Java
+-----------------------------------------------------
+
+I was unable to find a complete set of instructions for installing ROS Java so I have created this guide to help people do it. 
+
+1) Install the Java Runtime Environment and Java Development Kit
+To install ROS Java you obviously need to install a version of Java. If you already have Java installed you may skip this step.
+(I am using openjdk however there are alternate releases of Java for linux)
+	sudo apt-get install openjdk-7-jre
+	sudo apt-get install openjdk-7-jdk
+
+2) Install Netbeans
+I use Netbeans as my IDE so will install that now.
+	sudo apt-get install netbeans
+
+3) Move into your workspace
+Mine is:
+	roscd
+	cd ../src
+
+4) Clone the Rosjava code from the github repository
+	git clone https://github.com/rosjava/rosjava_core -b groovy-devel
+
+5) cd into rosjava_core
+	cd rosjava_core
+
+6) Use Gradlew to build and install rosjava_core
+	./gradlew install
+
+That should be rosjava installed although theres one more step that still need to be done.
+
+7) Create a symbolic link to be able to use gradle
+	mkdir ~/bin
+	ln -s PATH_TO_ROSJAVA_CORE/gradlew ~/bin/gradle
+	echo 'export PATH=$PATH:~/bin' >> ~/.bashrc
+	source ~/.bashrc
+	
+This creates a link between the bin folder in your home directory and the gradlew install in rosjava_core. Then the third line adds this to your execution path which is what's checked when you type commands into the command line.
+
+
+
+
+
+
+
+
+ 
+	
