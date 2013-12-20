@@ -1,0 +1,9 @@
+<launch>
+
+	<!-- kinect launch --> 
+	<include file="$(find openni_launch)/launch/openni.launch" respawn="true" />
+
+	<!-- kinect tracker -->
+	<node pkg="openni_tracker" type="openni_tracker" name="openni_tracker" respawn="true" output="screen" />
+
+</launch>

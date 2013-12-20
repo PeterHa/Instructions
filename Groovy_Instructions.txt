@@ -19,6 +19,19 @@ I have used the third option as this is the best option available to me. I am us
 -----------------------------------------------------
 
 It is important to complete the tutorials on the ROS wiki. These not only provide a good introduction to the various tools that you will need whilst using ROS. It also helps you setup your ROS Environment which is needed for the next step.
+
+If you do not wish to complete all of the ROS Tutorials (You may have done them already) then these commands are still neccessary:
+
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws/src
+catkin_init_workspace
+
+cd ~/catkin_ws
+catkin_make
+
+echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+
 -----------------------------------------------------
 		Installing ROS Java
 -----------------------------------------------------
@@ -41,7 +54,7 @@ Mine is:
 	cd ../src
 
 4) Clone the Rosjava code from the github repository
-	git clone https://github.com/rosjava/rosjava_core -b groovy-devel
+	git clone https://github.com/rosjava/rosjava_core -b groovy
 
 5) cd into rosjava_core
 	cd rosjava_core
@@ -59,10 +72,137 @@ That should be rosjava installed although theres one more step that still need t
 	
 This creates a link between the bin folder in your home directory and the gradlew install in rosjava_core. Then the third line adds this to your execution path which is what's checked when you type commands into the command line.
 
+-----------------------------------------------------
+		Connecting to a robot
+-----------------------------------------------------
+If you want to connect to the robot you will need to install the drivers below.
+
+You will also need to add yourself to the dialout group to have permission to read and write to USB devices
+
+	sudo usermod -a -G dialout <Username>
+
+This command requires you to logout or reboot to take effect 
+
+
+-----------------------------------------------------
+		Installing the p2os drivers (Connection to the robot)
+-----------------------------------------------------
+
+1) Install p2os_driver which controls the connection to the robot
+	sudo apt-get install ros-groovy-p2os-driver
 
 
 
 
+
+-----------------------------------------------------
+		Installing the laser drivers (Connecting to the laser)
+-----------------------------------------------------
+
+sudo apt-get install ros-groovy-laser-drivers
+
+
+
+
+
+-----------------------------------------------------
+		Using the kinect
+-----------------------------------------------------
+The Kinect publishes the skeleton points to the tf topic relevant to the frame the kinect is connected to.
+
+1) Install the ros Openni package
+	sudo apt-get install ros-groovy-openni-*
+
+2) Go to the NITE website and download the NITE package and then install it
+	http://www.primesense.com/solutions/nite-middleware/
+	unzip the NITE package
+	cd into it
+	./uninstall.sh
+	./install.sh	
+
+3) Launch the kinect.launch file from this git
+	roslaunch kinect.launch
+
+4) If there are no errors in the kinect terminal window then you can see the output in rviz (I regularly get segmentation faults running rviz but just try running it again)
+	rosrun rviz rviz
+
+5) Change the fixed frame to /base_camera_link
+
+6) Add a tf view to rviz
+	Click the button at the bottom left "Add"
+	(If the add button is not visible try maximising the window)
+	Find the tf view and click ok
+
+
+
+(The NITE package seems to be very picky which openni versions it works with. I have tried two versions and one requires the PSI pose and one does not).
+
+
+----------------------------------------------------------------------------------------------------------
+						Troubleshooting
+----------------------------------------------------------------------------------------------------------
+
+Error running roscore or ros packages:
+
+Unable to contact my own server at [http://<hostname>:<ip address>/].
+This usually means that the network is not configured properly.
+
+A common cause is that the machine cannot ping itself.  Please check
+for errors by running:
+
+	ping laptop-2014
+
+For more tips, please see
+
+	http://www.ros.org/wiki/ROS/NetworkSetup
+
+Solution:
+If the above website (i.e. removing /etc/hostname and rebooting) does not solve  the problem you can try these two commands.
+
+export ROS_MASTER_URI=http://localhost:11311
+export ROS_HOSTNAME=localhost
+
+(These commands are only reported to work on a one robot system and a one computer system.)
+
+-----------------------------------------------------
+		HOKUYO LASER
+-----------------------------------------------------
+Error connecting to Hokuyo node:
+
+If you have trouble connecting to the hokuyo node with the error message below:
+
+Error: Failed to open port. Permission denied.
+
+Solution:
+Try the step above in connecting to the robot.
+
+
+
+
+Error connecting to Hokuyo laser:
+
+If there is an error connecting to the Hokuyo laser (Especially when using move_base) the process may not die but you may not receive any information from the laser.
+
+You can attempt this fix (I have had limited success):
+
+sudo /etc/init.d/udev stop
+sudo /etc/init.d/udev start
+
+or logout/restart which seems to fix it.
+
+-----------------------------------------------------
+		P2os error
+-----------------------------------------------------
+Error starting p2os_driver:
+
+[ERROR] [1387579445.188477871]: P2OS::Setup():open():
+[ERROR] [1387579445.188540728]: p2os setup failed...
+
+
+Solution:
+1) If you are simulating the robot you will not need the p2os_driver.
+2) Is the robot on?
+3) Try the step above in connecting to the robot.
 
 
 
