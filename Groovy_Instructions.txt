@@ -2,7 +2,8 @@
 					Getting Started
 ----------------------------------------------------------------------------------------------------------
 
-R.O.S. or Robot Operating System is used to communicate between a computer and a robot. ROS currently uses 3 languages: C++, Python and Java. I am using ROS Java although it is still under active development and so features are volatile.
+R.O.S. or Robot Operating System is used to communicate between a computer and a robot. ROS currently uses 3 languages: C++, 
+Python and Java. I am using ROS Java although it is still under active development and so features are volatile.
 -----------------------------------------------------
 		ROS options
 -----------------------------------------------------
@@ -13,14 +14,17 @@ http://nootrix.com/2012/09/virtualizing-ros/
 1c) Install Ubuntu on a separate partition on your machine and dual boot. Then install ROS and ROS Java. Instructions here:
 http://wiki.ros.org/ROS/Installation
 
-I have used the third option as this is the best option available to me. I am using Ubuntu 13.04 and ROS Groovy as this is the best combination for my laptop
+I have used the third option as this is the best option available to me. I am using Ubuntu 13.04 and ROS Groovy as 
+this is the best combination for my laptop
 -----------------------------------------------------
 		Complete the ROS Tutorials
 -----------------------------------------------------
 
-It is important to complete the tutorials on the ROS wiki. These not only provide a good introduction to the various tools that you will need whilst using ROS. It also helps you setup your ROS Environment which is needed for the next step.
+It is important to complete the tutorials on the ROS wiki. These not only provide a good introduction to the various 
+tools that you will need whilst using ROS. It also helps you setup your ROS Environment which is needed for the next step.
 
-If you do not wish to complete all of the ROS Tutorials (You may have done them already) then these commands are still neccessary:
+If you do not wish to complete all of the ROS Tutorials (You may have done them already) then these commands are still
+neccessary:
 
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src
@@ -36,10 +40,12 @@ source ~/.bashrc
 		Installing ROS Java
 -----------------------------------------------------
 
-I was unable to find a complete set of instructions for installing ROS Java so I have created this guide to help people do it. 
+I was unable to find a complete set of instructions for installing ROS Java so I have created this guide to help 
+people do it. 
 
 1) Install the Java Runtime Environment and Java Development Kit
-To install ROS Java you obviously need to install a version of Java. If you already have Java installed you may skip this step.
+To install ROS Java you obviously need to install a version of Java. If you already have Java installed you may 
+skip this step.
 (I am using openjdk however there are alternate releases of Java for linux)
 	sudo apt-get install openjdk-7-jre
 	sudo apt-get install openjdk-7-jdk
@@ -70,7 +76,8 @@ That should be rosjava installed although theres one more step that still need t
 	echo 'export PATH=$PATH:~/bin' >> ~/.bashrc
 	source ~/.bashrc
 	
-This creates a link between the bin folder in your home directory and the gradlew install in rosjava_core. Then the third line adds this to your execution path which is what's checked when you type commands into the command line.
+This creates a link between the bin folder in your home directory and the gradlew install in rosjava_core. Then 
+the third line adds this to your execution path which is what's checked when you type commands into the command line.
 
 -----------------------------------------------------
 		Connecting to a robot
@@ -123,7 +130,8 @@ The Kinect publishes the skeleton points to the tf topic relevant to the frame t
 3) Launch the kinect.launch file from this git
 	roslaunch kinect.launch
 
-4) If there are no errors in the kinect terminal window then you can see the output in rviz (I regularly get segmentation faults running rviz but just try running it again)
+4) If there are no errors in the kinect terminal window then you can see the output in rviz (I regularly get 
+segmentation faults running rviz but just try running it again)
 	rosrun rviz rviz
 
 5) Change the fixed frame to /base_camera_link
@@ -135,7 +143,8 @@ The Kinect publishes the skeleton points to the tf topic relevant to the frame t
 
 
 
-(The NITE package seems to be very picky which openni versions it works with. I have tried two versions and one requires the PSI pose and one does not).
+(The NITE package seems to be very picky which openni versions it works with. I have tried two versions and one 
+requires the PSI pose and one does not).
 
 
 ----------------------------------------------------------------------------------------------------------
@@ -157,7 +166,8 @@ For more tips, please see
 	http://www.ros.org/wiki/ROS/NetworkSetup
 
 Solution:
-If the above website (i.e. removing /etc/hostname and rebooting) does not solve  the problem you can try these two commands.
+If the above website (i.e. removing /etc/hostname and rebooting) does not solve  the problem you can try these 
+two commands.
 
 export ROS_MASTER_URI=http://localhost:11311
 export ROS_HOSTNAME=localhost
@@ -181,7 +191,8 @@ Try the step above in connecting to the robot.
 
 Error connecting to Hokuyo laser:
 
-If there is an error connecting to the Hokuyo laser (Especially when using move_base) the process may not die but you may not receive any information from the laser.
+If there is an error connecting to the Hokuyo laser (Especially when using move_base) the process may not die 
+but you may not receive any information from the laser.
 
 You can attempt this fix (I have had limited success):
 
