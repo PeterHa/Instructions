@@ -1,82 +1,5 @@
 ----------------------------------------------------------------------------------------------------------
-					Getting Started
-----------------------------------------------------------------------------------------------------------
-
-R.O.S. or Robot Operating System is used to communicate between a computer and a robot. ROS currently uses 3 languages: C++, Python and Java. I am using ROS Java although it is still under active development and so features are volatile.
------------------------------------------------------
-		ROS options
------------------------------------------------------
-
-1a) Use a Virtual machine disk image with Ubuntu and ROS already installed. Instructions here: 
-http://nootrix.com/2012/09/virtualizing-ros/
-1b) Install ROS natively on Ubuntu or Mac OS X. (As of 2012 I was unable to get a working install of ROS on Mac OS X)
-1c) Install Ubuntu on a separate partition on your machine and dual boot. Then install ROS and ROS Java. Instructions here:
-http://wiki.ros.org/ROS/Installation
-
-I have used the third option as this is the best option available to me. I am using Ubuntu 13.04 and ROS Hydro as this is the best combination for my laptop.
-
------------------------------------------------------
-		Complete the ROS Tutorials
------------------------------------------------------
-
-It is important to complete the tutorials on the ROS wiki. These not only provide a good introduction to the various tools that you will need whilst using ROS. It also helps you setup your ROS Environment which is needed for the next step.
- 
------------------------------------------------------
-		Installing ROS Java
------------------------------------------------------
-The official instructions for installing ROS can be found here:
-http://wiki.ros.org/rosjava/Tutorials/hydro/Installation
-
-
-<Date of writing 25/9/2013>
-However I used a different set of instructions which I will outline below:
-
-1) Ensure apt-get is up to date
-	sudo apt-get update
-	sudo apt-get upgrade
-
-2) Install the Java Runtime Environment and Java Development Kit
-To install ROS Java you obviously need to install a version of Java. If you already have Java installed you may skip this step.
-(I am using openjdk however there are alternate releases of Java for linux)
-	sudo apt-get install openjdk-7-jre
-	sudo apt-get install openjdk-7-jdk
-
-3) Install Netbeans
-I use Netbeans as my IDE so will install that now.
-	sudo apt-get install netbeans
-
-4) Install python-wstool
-	sudo apt-get install python-wstool
-
-5) cd into your workspace
-Mine is:
-	roscd
-	cd ../src
-
-6) Make a directory for rosjava
-	mkdir -p rosjava
-
-7) Initialise the empty repository and add the rosjava files
-	wstool init -j4 ./rosjava/src https://raw.github.com/rosjava/rosjava_tools/hydro-devel/rosjava.rosinstall
-
-8) Make the rosjava files
-	cd rosjava
-	catkin_make
-
-Rosjava should now be installed and working properly.
-
-----------------------------------------------------------------------------------------------------------
-		Using the Microsoft Xbox 360 Kinect with ROS
-----------------------------------------------------------------------------------------------------------
-I am using the Microsoft Xbox 360 Kinect to track skeletons with ROS Java for various projects.
-I have previously used the openni package to track skeletons but development of this seems to have been discontinued so I will use freenect_stack. Documentation here:
-http://wiki.ros.org/freenect_stack
-
-1) Install the files
-	sudo apt-get install ros-hydro-freenect-stack
-
-----------------------------------------------------------------------------------------------------------
-		Using a Pan Tilt Unit (PTU)
+					Using a Pan Tilt Unit (PTU)
 ----------------------------------------------------------------------------------------------------------
 
 A Pan Tilt Unit as the name suggests allows you to adjust the pan and tilt of the thing connected to the unit (I am using it with a kinect camera on top). I have the Pan Tilt Unit connected via USB to my computer.
@@ -91,7 +14,7 @@ https://code.google.com/p/wu-robotics/source/browse/
 
 
 ----------------------------------------------------------------------------------------------------------
-		Creating a urdf model from a .xacro file
+				Creating a urdf model from a .xacro file
 ----------------------------------------------------------------------------------------------------------
 
 Ros uses urdf models to keep track of the size and shape of a robot, the direction the robot is facing, the position of the robots joints and many more things.
@@ -103,14 +26,52 @@ The script to convert .xacro -> urdf is:
 
 
 
+----------------------------------------------------------------------------------------------------------
+			Creating a custom ROS Message type and importing into ROSJava			
+----------------------------------------------------------------------------------------------------------
+
+To create a custom message type in ROS follow the instructions in the following ROS Tutorial
+
+http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv#Creating_a_msg
+
+To import the custom message type into ROSJava you must first delete the messages compiled and recompile them
+To do this cd into the rosjava_messages folder
+
+	roscd rosjava_messages
+
+(Note this command does not work on my setup and so the command that should be used is roscd rosjava_core; cd rosjava_messages)
+
+You can then delete the compiled rosjava messages by using the command:
+
+	rm -rf build/generated-src
+
+Then recompile the source by running the following command:
+
+	../gradlew install
+
+This then recompiles the source and the messages should have been created. To check, check the build/generated-src folder for the folder relating to the name of your message type
+
+----------------------------------------------------------------------------------------------------------
+			Importing a ROS Image into the ROSJava BufferedImage format
+----------------------------------------------------------------------------------------------------------
+To import images from a ROS Image format into the ROSJava BufferedImage format the following code snippet is useful:
 
 
+import sensor_msgs.Image;
 
+	public void receivedImage(Image image) {
+		DataBuffer videoBuffer = new DataBufferByte(image.getData().array(),
+				image.getData().array().length);
+		latestImage = new BufferedImage(image.getWidth(), image.getHeight(),
+				BufferedImage.TYPE_INT_BGR);
+		ComponentSampleModel sampleModel = new ComponentSampleModel(
+				DataBuffer.TYPE_BYTE, image.getWidth(), image.getHeight(), 3,
+				image.getWidth() * 3, new int[] { 2, 1, 0 });
+		Raster raster = Raster.createRaster(sampleModel, videoBuffer, null);
+		latestImage.setData(raster);
+	}
 
-
-
-
-
+This can be used when using the Kinect camera system to import the rgb image into ROSJava.
 
 
 
